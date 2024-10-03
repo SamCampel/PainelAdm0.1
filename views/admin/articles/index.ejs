@@ -1,0 +1,46 @@
+<%- include ('../../partials/header.ejs'); %>
+<%- include ('../../partials/navbar.ejs'); %>
+<div class="container">
+
+    <hr> <div class="d-flex justify-content-between align-items-center">
+        <h2>Artigos</h2>
+        <a class="btn btn-outline-primary btn-sm" href="/admin/articles/new">CRIAR UM ARTIGO</a>
+    </div> <hr>
+
+   <table class="table table-bordered bg-warning">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Slug</th>
+                <th>Categoria</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% articles.forEach(article => { %>
+                <tr>
+                    <td><%= article.id     %></td>
+                    <td><%= article.title  %></td>
+                    <td><%= article.slug   %></td>
+                    <td><%= article.categoryId   %></td>
+                    <td>Ações</td>
+                </tr>     
+            <%  });  %>
+        </tbody>
+   </table>
+</div>
+
+
+<%- include ('../../partials/footer.ejs'); %>
+
+<script>
+    function confirmDel(event, form){
+        event.preventDefault();
+        var decision = confirm("Deseja EXCLUIR este artigo?");
+    
+        if(decision){
+            form.submit()
+        }
+    }
+</script>

@@ -1,0 +1,56 @@
+<%- include ('../../partials/header.ejs'); %>
+<%- include ('../../partials/navbar.ejs'); %>
+<div class="container">
+
+    <hr> <div class="d-flex justify-content-between align-items-center">
+        <h2>Categorias</h2>
+        <a class="btn btn-outline-primary btn-sm" href="/admin/categories/new">CRIAR CATEGORIA</a>
+    </div> <hr>
+
+   <table class="table table-bordered bg-warning">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Slug</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+        <% categories.forEach(category => { %>
+            <tr>
+                <th><%= category.id     %></th>
+                <th><%= category.title  %></th>
+                <th><%= category.slug   %></th>
+                <th>
+                    <a class="btn btn-success btn-sm" href="/admin/categories/edit/<%= category.id   %>">Editar</a>
+
+
+
+                    <form  method="post" action="/categories/delete" style="display: inline;" onsubmit="confirmDel(event, this)">
+
+                        <input type="hidden" name="id" value="<%= category.id %>">
+                        <button class="btn btn-danger btn-sm">Excluir</button>
+
+                    </form>
+                </th>
+            </tr>
+        <%  });  %>
+        </tbody>
+   </table>
+</div>
+
+
+<%- include ('../../partials/footer.ejs'); %>
+
+<script>
+    function confirmDel(event, form){
+        event.preventDefault();
+        var decision = confirm("Deseja EXCLUIR esta categoria?");
+    
+        if(decision){
+            form.submit()
+        }
+    }
+</script>
